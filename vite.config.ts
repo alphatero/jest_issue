@@ -17,6 +17,7 @@ export default ({ mode }) => {
         },
       }),
     ],
+    resolve: { dedupe: ["vue"] },
     build: {
       target: "esnext",
       assetsInlineLimit: 100000000,

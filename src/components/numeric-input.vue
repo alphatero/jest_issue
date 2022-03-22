@@ -142,7 +142,7 @@ function filterPrecicion(target: HTMLInputElement) {
   if (target.value.includes(".") && Number(target.value)) {
     console.log("this", Number(target.value));
     const precv = target.value.split(".")[1].length;
-    if (precv > 2) {
+    if (precv > props.precision) {
       target.value = target.value.slice(0, -1);
     }
   }
