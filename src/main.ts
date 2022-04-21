@@ -19,10 +19,13 @@ import jp from "./locales/jp.json";
 
 import router from "./router";
 
-if (process.env.NODE_ENV === "development") {
-  // makeServer();
-}
+// if (process.env.NODE_ENV === "development") {
+//    makeServer();
+// }
 
+/**
+ * translation plugin i18n
+ */
 const i18n = createI18n({
   legacy: true,
   locale: localStorage.getItem("locale") || "ch",
@@ -36,9 +39,15 @@ const i18n = createI18n({
 
 const app = createApp(App);
 
+/**
+ * please if update version, remark and write down log in readme
+ */
+const version = "1.0.030";
+
+app.provide("version", version);
+
 app.use(router);
 app.use(i18n);
-// app.mixin(checkPathMixin);
 app.component("Card", Card);
 app.component("Modal", Modal);
 app.component("Loading", Loading);

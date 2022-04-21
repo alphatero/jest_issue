@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 
+/**
+ * if data is not JSON format, console error.
+ */
 function isJSON(msg: string) {
   try {
     if (JSON.parse(msg)) return true;
@@ -13,8 +16,14 @@ function isJSON(msg: string) {
 /** @type {WebSocket} */
 let ws: WebSocket;
 
+/**
+ * queue about actions.
+ */
 const queue: any[] = [];
 
+/**
+ * function type in websocket addEventListener
+ */
 export enum FuncType {
   Open = "open",
   Msg = "msg",
@@ -29,6 +38,9 @@ type Content = {
   close: fun[];
 };
 
+/**
+ * map fuction each addEvent
+ */
 const map: Content = {
   open: [],
   msg: [],
@@ -39,6 +51,9 @@ type Msg = {
   data: string;
 };
 
+/**
+ * websocket server
+ */
 export default function Service(ip: string) {
   function addEventListener(type: FuncType, func: fun) {
     if (type in map) {
@@ -66,6 +81,9 @@ export default function Service(ip: string) {
 
   ws = new WebSocket(ip);
 
+  /**
+   * websocket status open
+   */
   ws.addEventListener("open", () => {
     while (queue.length) {
       send(queue.shift());
@@ -86,11 +104,17 @@ export default function Service(ip: string) {
     });
   });
 
+  /**
+   * websocket status error
+   */
   ws.addEventListener("error", (error) => {
     console.log(error);
     alert("please reboot website");
   });
 
+  /**
+   * websocket status close
+   */
   ws.addEventListener("close", () => {
     console.log("close");
     alert("please reboot website");
